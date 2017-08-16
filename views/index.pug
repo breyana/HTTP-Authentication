@@ -1,5 +1,12 @@
 doctype html
 title
-  HTTP Authentication
+  | HTTP Authentication
 body
-  p Hello World
+  if user
+    p Welcome back #{user}
+  else 
+    p Hello stranger
+    p
+      a(href='/signup') Sign Up
+    p
+      a(href='/login') Log In
