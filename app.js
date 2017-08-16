@@ -1,6 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser')
 
+const db = require('./db')
+
 const app = express();
 
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -13,6 +15,13 @@ app.get('/', (request, response) => {
 
 app.get('/signup', (request, response) => {
   response.render('signup')
+})
+
+app.post('/signup', (request, response) => {
+  const email = request.body.email
+  const password = request.body.password
+  const user = db.addUser(email, password)
+  response.render('index', { user })
 })
 
 app.get('/login', (request, response) => {
