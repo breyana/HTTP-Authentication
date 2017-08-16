@@ -1,6 +1,8 @@
 extends layout.pug
 
 block content
+  if error
+    p #{error}
   form(action='/signup' method='post')
     p Email: 
       input(type='text' name='email')

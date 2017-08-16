@@ -20,8 +20,21 @@ app.get('/signup', (request, response) => {
 app.post('/signup', (request, response) => {
   const email = request.body.email
   const password = request.body.password
-  const user = db.addUser(email, password)
-  response.render('index', { user })
+  const passwordConfirm = request.body['password-confirmation']
+  let error = undefined
+
+  if (!password || !email) {
+    error = 'Please provide an email and password to sign up'
+  } else if (password !== passwordConfirm) {
+    error = 'Passwords do not match'
+  }
+  
+  if (error) {
+    response.render('signup', { error })
+  } else {
+    const user = db.addUser(email, password)
+    response.render('index', { user })
+  }
 })
 
 app.get('/login', (request, response) => {
