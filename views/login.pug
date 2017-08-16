@@ -1,0 +1,8 @@
+extends layout.pug
+
+block content
+  form(action='/login' method='post')
+    p Email: 
+      input(type='text' name='email')
+    p Password: 
+      input(type='password' name='password')
