@@ -3,6 +3,8 @@ extends layout.pug
 block content
   if user
     p Welcome back #{user}
+    p
+      a(href='/logout') Log Out
   else 
     p Hello stranger
     p
