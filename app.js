@@ -11,6 +11,10 @@ app.get('/', (request, response) => {
   response.render('index')
 })
 
+app.get('/signup', (request, response) => {
+  response.render('signup')
+})
+
 app.listen(3000, () => {
   console.log('App is up and running on localhost:3000')
 })

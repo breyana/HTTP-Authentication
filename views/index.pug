@@ -1,7 +1,6 @@
-doctype html
-title
-  | HTTP Authentication
-body
+extends layout.pug
+
+block content
   if user
     p Welcome back #{user}
   else 
