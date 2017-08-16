@@ -19,6 +19,10 @@ app.get('/login', (request, response) => {
   response.render('login')
 })
 
+app.get('/logout', (request, response) => {
+  response.redirect('/')
+})
+
 app.listen(3000, () => {
   console.log('App is up and running on localhost:3000')
 })
