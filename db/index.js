@@ -9,9 +9,6 @@ const addUser = (email, password) => {
     .then(data => {
       return data.email;
     })
-    .catch(error => {
-      console.log('ERROR:', error);
-    })
 }
 
 module.exports = {

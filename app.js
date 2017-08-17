@@ -28,21 +28,30 @@ app.post('/signup', (request, response) => {
   const email = request.body.email
   const password = request.body.password
   const passwordConfirm = request.body['password-confirmation']
-  let error = undefined
+  let errorMessage = undefined
 
   if (!password || !email) {
-    error = 'Please provide an email and password to sign up'
+    errorMessage = 'Please provide an email and password to sign up'
   } else if (password !== passwordConfirm) {
-    error = 'Passwords do not match'
+    errorMessage = 'Passwords do not match'
   }
 
-  if (error) {
+  if (errorMessage) {
     response.render('signup', { error })
   } else {
     db.addUser(email, password)
       .then(user => {
         request.session.email = user
         response.render('index', { user })
+      })
+      .catch(error => {
+        if (error.code === '23505') {
+          errorMessage = 'That email address is already taken'
+          response.render('signup', { errorMessage })
+        } else {
+          errorMessage = 'There was an error'
+          response.render('signup', { errorMessage })
+        }
       })
   }
 })
