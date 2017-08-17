@@ -47,11 +47,10 @@ app.post('/signup', (request, response) => {
       .catch(error => {
         if (error.code === '23505') {
           errorMessage = 'That email address is already taken'
-          response.render('signup', { errorMessage })
         } else {
           errorMessage = 'There was an error'
-          response.render('signup', { errorMessage })
         }
+        response.render('signup', { errorMessage })
       })
   }
 })
