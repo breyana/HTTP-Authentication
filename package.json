@@ -4,7 +4,8 @@
   "description": "In this benchmark goal you're going to build an Express HTTP server that allows users to signup, login and logout of your application.",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "resetdb": "psql httpauth < schema.sql"
   },
   "repository": {
     "type": "git",
