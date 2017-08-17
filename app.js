@@ -28,12 +28,14 @@ app.post('/signup', (request, response) => {
   } else if (password !== passwordConfirm) {
     error = 'Passwords do not match'
   }
-  
+
   if (error) {
     response.render('signup', { error })
   } else {
-    const user = db.addUser(email, password)
-    response.render('index', { user })
+    db.addUser(email, password)
+      .then(user => {
+        response.render('index', { user })
+      })
   }
 })
 

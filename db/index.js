@@ -5,7 +5,7 @@ const db = pgp({
 });
 
 const addUser = (email, password) => {
-  db.one('INSERT INTO users(email, password) VALUES($1, $2) RETURNING email', [email, password])
+   return db.one('INSERT INTO users(email, password) VALUES($1, $2) RETURNING email', [email, password])
     .then(data => {
       return data.email;
     })
