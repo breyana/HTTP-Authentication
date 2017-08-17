@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser')
+const cookieSession = require('cookie-session')
 
 const db = require('./db')
 
@@ -7,10 +8,16 @@ const app = express();
 
 app.use(bodyParser.urlencoded({ extended: false }))
 
+app.use(cookieSession({
+  name: 'session',
+  secret: 'reallyLongComplicatedString'
+}))
+
 app.set('view engine', 'pug')
 
 app.get('/', (request, response) => {
-  response.render('index')
+  const user = request.session.email
+  response.render('index', { user })
 })
 
 app.get('/signup', (request, response) => {
@@ -34,6 +41,7 @@ app.post('/signup', (request, response) => {
   } else {
     db.addUser(email, password)
       .then(user => {
+        request.session.email = user
         response.render('index', { user })
       })
   }
