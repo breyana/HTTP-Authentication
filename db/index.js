@@ -11,8 +11,8 @@ const addUser = (email, password) => {
     })
 }
 
-const retrieveUser = (email, password) => {
-  return db.one('SELECT * FROM users WHERE email = $1 AND password = $2', [email, password])
+const retrieveUser = (email) => {
+  return db.one('SELECT * FROM users WHERE email = $1', [email])
 }
 
 module.exports = {
