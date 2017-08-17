@@ -59,6 +59,21 @@ app.get('/login', (request, response) => {
   response.render('login')
 })
 
+app.post('/login', (request, response) => {
+  const email = request.body.email
+  const password = request.body.password
+  let errorMessage = undefined
+  db.retrieveUser(email, password)
+    .then(user => {
+      request.session.email = user.email
+      response.redirect('/')
+    })
+    .catch(error => {
+      errorMessage = 'Incorrect email or password'
+      response.render('login', {errorMessage})
+    })
+})
+
 app.get('/logout', (request, response) => {
   response.redirect('/')
 })
