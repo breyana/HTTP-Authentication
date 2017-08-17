@@ -21,7 +21,11 @@ app.get('/', (request, response) => {
 })
 
 app.get('/signup', (request, response) => {
-  response.render('signup')
+  if (request.session.email) {
+    response.redirect('/')
+  } else {
+    response.render('signup')
+  }
 })
 
 app.post('/signup', (request, response) => {
@@ -56,7 +60,11 @@ app.post('/signup', (request, response) => {
 })
 
 app.get('/login', (request, response) => {
-  response.render('login')
+  if (request.session.email) {
+    response.redirect('/')
+  } else {
+    response.render('login')
+  }
 })
 
 app.post('/login', (request, response) => {
