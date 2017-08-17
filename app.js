@@ -42,7 +42,7 @@ app.post('/signup', (request, response) => {
     db.addUser(email, password)
       .then(user => {
         request.session.email = user
-        response.render('index', { user })
+        response.redirect('/')
       })
       .catch(error => {
         if (error.code === '23505') {
