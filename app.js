@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser')
 const cookieSession = require('cookie-session')
+const bcrypt = require('bcrypt')
 
 const db = require('./db')
 
@@ -43,7 +44,8 @@ app.post('/signup', (request, response) => {
   if (errorMessage) {
     response.render('signup', { error })
   } else {
-    db.addUser(email, password)
+    bcrypt.hash(password, 10)
+      .then(hash => db.addUser(email, hash))
       .then(user => {
         request.session.email = user
         response.redirect('/')
@@ -71,10 +73,16 @@ app.post('/login', (request, response) => {
   const email = request.body.email
   const password = request.body.password
   let errorMessage = undefined
-  db.retrieveUser(email, password)
-    .then(user => {
-      request.session.email = user.email
-      response.redirect('/')
+  db.retrieveUser(email)
+    .then(user => bcrypt.compare(password, user.password))
+    .then(result => {
+      if (result) {
+        request.session.email = email
+        response.redirect('/')
+      } else {
+        errorMessage = 'Incorrect email or password'
+        response.render('login', {errorMessage})
+      }
     })
     .catch(error => {
       errorMessage = 'Incorrect email or password'
