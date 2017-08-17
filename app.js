@@ -75,6 +75,7 @@ app.post('/login', (request, response) => {
 })
 
 app.get('/logout', (request, response) => {
+  request.session = null
   response.redirect('/')
 })
 
