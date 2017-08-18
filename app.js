@@ -50,7 +50,8 @@ app.post('/signup', (request, response) => {
         response.redirect('/')
       })
       .catch(error => {
-        if (error.code === '23505') {
+        const DUPLICATE_ENTRY = '23505'
+        if (error.code === DUPLICATE_ENTRY) {
           errorMessage = 'That email address is already taken'
         } else {
           errorMessage = 'There was an error'
