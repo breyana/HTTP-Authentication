@@ -80,8 +80,7 @@ app.post('/login', (request, response) => {
         request.session.email = email
         response.redirect('/')
       } else {
-        errorMessage = 'Incorrect email or password'
-        response.render('login', {errorMessage})
+        throw new Error()
       }
     })
     .catch(error => {
