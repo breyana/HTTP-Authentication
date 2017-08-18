@@ -32,7 +32,7 @@ app.get('/signup', (request, response) => {
 app.post('/signup', (request, response) => {
   const { email, password } = request.body
   const passwordConfirm = request.body['password-confirmation']
-  let errorMessage = undefined
+  let errorMessage
 
   if (!password || !email) {
     errorMessage = 'Please provide an email and password to sign up'
@@ -72,7 +72,7 @@ app.get('/login', (request, response) => {
 app.post('/login', (request, response) => {
   const email = request.body.email
   const password = request.body.password
-  let errorMessage = undefined
+  let errorMessage
   db.retrieveUser(email)
     .then(user => bcrypt.compare(password, user.password))
     .then(result => {
