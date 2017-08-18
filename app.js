@@ -30,8 +30,7 @@ app.get('/signup', (request, response) => {
 })
 
 app.post('/signup', (request, response) => {
-  const email = request.body.email
-  const password = request.body.password
+  const { email, password } = request.body
   const passwordConfirm = request.body['password-confirmation']
   let errorMessage = undefined
 
